@@ -1,2 +1,671 @@
-# texas-fbi-stf-website
-Texas FBI Special Tasks Force Division Website
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Texas FBI | Special Tasks Force</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080d16;
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+.header {
+    background: linear-gradient(135deg, #0d1626, #101d32);
+    border-bottom: 1px solid #26364f;
+    padding: 22px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.badge {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #17365f;
+    border: 2px solid #3d76bd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.brand h1 {
+    font-size: 21px;
+}
+
+.brand p {
+    color: #8ea4c4;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.status {
+    padding: 9px 14px;
+    border-radius: 8px;
+    background: #111d2e;
+    border: 1px solid #2a405f;
+    color: #8fa8c9;
+    font-size: 13px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 0 25px;
+}
+
+.welcome {
+    margin-bottom: 25px;
+}
+
+.welcome h2 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.welcome p {
+    color: #8fa1bb;
+}
+
+.login-card,
+.card {
+    background: #0e1726;
+    border: 1px solid #22334c;
+    border-radius: 13px;
+    padding: 22px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.2);
+}
+
+.login-card {
+    margin-bottom: 22px;
+}
+
+label {
+    display: block;
+    color: #9db0cb;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    background: #080f1b;
+    border: 1px solid #2a405d;
+    border-radius: 8px;
+    color: white;
+    outline: none;
+}
+
+input:focus {
+    border-color: #4385d1;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.12);
+}
+
+.save-btn {
+    background: #235b9e;
+    margin-left: 8px;
+}
+
+.duty-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.duty-btn {
+    padding: 17px;
+    background: #17243a;
+    border: 1px solid #2c4565;
+}
+
+.duty-btn.active {
+    background: #1e5b38;
+    border-color: #3f9d67;
+}
+
+.break.active {
+    background: #70551c;
+    border-color: #bd963e;
+}
+
+.off.active {
+    background: #5c2026;
+    border-color: #a83b45;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    margin-bottom: 18px;
+    font-size: 17px;
+}
+
+.timer {
+    font-size: 42px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.current-status {
+    display: inline-block;
+    padding: 7px 11px;
+    border-radius: 6px;
+    background: #18263b;
+    color: #9db3d0;
+    font-size: 13px;
+}
+
+.progress-container {
+    background: #182437;
+    height: 15px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 15px 0 10px;
+}
+
+.progress {
+    height: 100%;
+    width: 0%;
+    background: #3978bd;
+    transition: width .4s;
+}
+
+.quota-text {
+    display: flex;
+    justify-content: space-between;
+    color: #9aabc2;
+    font-size: 13px;
+}
+
+.big-number {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.table-card {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 14px;
+    border-bottom: 1px solid #1d2b40;
+}
+
+th {
+    color: #8ea6c7;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+td {
+    color: #d8e1ee;
+    font-size: 14px;
+}
+
+.empty {
+    color: #71849e;
+    text-align: center;
+    padding: 25px;
+}
+
+.footer {
+    text-align: center;
+    color: #596b83;
+    font-size: 12px;
+    padding: 30px;
+}
+
+@media(max-width: 750px) {
+    .header {
+        padding: 18px;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .duty-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .status {
+        display: none;
+    }
+
+    .save-btn {
+        margin: 10px 0 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="brand">
+        <div class="badge">STF</div>
+        <div>
+            <h1>Texas FBI</h1>
+            <p>Special Tasks Force • Internal Division Portal</p>
+        </div>
+    </div>
+
+    <div class="status" id="headerStatus">
+        OFF DUTY
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="welcome">
+        <h2>Special Tasks Force Portal</h2>
+        <p>Manage your duty status and monitor your weekly activity quota.</p>
+    </section>
+
+    <section class="login-card">
+        <label for="username">Member Username</label>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Enter your Roblox / Discord username"
+        >
+
+        <button class="save-btn" onclick="saveUsername()">
+            Save Profile
+        </button>
+
+        <div class="duty-buttons">
+            <button class="duty-btn" onclick="setStatus('ON DUTY')">
+                🟢 ON DUTY
+            </button>
+
+            <button class="duty-btn break" onclick="setStatus('ON BREAK')">
+                🟡 ON BREAK
+            </button>
+
+            <button class="duty-btn off" onclick="setStatus('OFF DUTY')">
+                🔴 OFF DUTY
+            </button>
+        </div>
+    </section>
+
+    <section class="grid">
+
+        <div class="card">
+            <h3>Current Duty Session</h3>
+
+            <div class="timer" id="timer">
+                00:00:00
+            </div>
+
+            <span class="current-status" id="currentStatus">
+                OFF DUTY
+            </span>
+        </div>
+
+        <div class="card">
+            <h3>Weekly Quota</h3>
+
+            <div class="big-number">
+                <span id="minutes">0</span> / 30 min
+            </div>
+
+            <div class="progress-container">
+                <div class="progress" id="progress"></div>
+            </div>
+
+            <div class="quota-text">
+                <span id="quotaMessage">30 minutes required</span>
+                <span id="percentage">0%</span>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="card table-card">
+        <h3>Recent Activity</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Member</th>
+                    <th>Status</th>
+                    <th>Time</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+
+            <tbody id="activityTable">
+                <tr>
+                    <td colspan="4" class="empty">
+                        No activity recorded yet.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+</main>
+
+<footer class="footer">
+    Texas FBI • Special Tasks Force<br>
+    Fictional / Roleplay Division Portal
+</footer>
+
+<script>
+
+const QUOTA = 30 * 60;
+
+let data = JSON.parse(
+    localStorage.getItem("stfData")
+) || {
+    username: "",
+    weeklySeconds: 0,
+    status: "OFF DUTY",
+    sessionStart: null,
+    activity: [],
+    week: getWeekKey()
+};
+
+function getWeekKey() {
+    const date = new Date();
+
+    const day = date.getDay();
+
+    const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+
+    const monday = new Date(date.setDate(diff));
+
+    return monday.toISOString().slice(0, 10);
+}
+
+function checkWeek() {
+
+    const currentWeek = getWeekKey();
+
+    if (data.week !== currentWeek) {
+
+        data.week = currentWeek;
+        data.weeklySeconds = 0;
+        data.activity = [];
+
+        save();
+    }
+}
+
+function save() {
+    localStorage.setItem(
+        "stfData",
+        JSON.stringify(data)
+    );
+}
+
+function saveUsername() {
+
+    const value = document
+        .getElementById("username")
+        .value
+        .trim();
+
+    if (!value) {
+        alert("Please enter your username.");
+        return;
+    }
+
+    data.username = value;
+
+    save();
+
+    alert("Profile saved!");
+}
+
+function setStatus(newStatus) {
+
+    const now = Date.now();
+
+    if (data.status === "ON DUTY" && data.sessionStart) {
+
+        const elapsed =
+            Math.floor((now - data.sessionStart) / 1000);
+
+        data.weeklySeconds += elapsed;
+
+        addActivity(
+            "ON DUTY",
+            formatSeconds(elapsed)
+        );
+    }
+
+    if (newStatus === "ON DUTY") {
+        data.sessionStart = Date.now();
+    } else {
+        data.sessionStart = null;
+    }
+
+    data.status = newStatus;
+
+    addActivity(
+        newStatus,
+        new Date().toLocaleTimeString()
+    );
+
+    save();
+
+    update();
+}
+
+function addActivity(status, time) {
+
+    data.activity.unshift({
+
+        username:
+            data.username || "Unknown Member",
+
+        status: status,
+
+        time: time,
+
+        date: new Date().toLocaleDateString()
+
+    });
+
+    data.activity =
+        data.activity.slice(0, 20);
+}
+
+function formatSeconds(seconds) {
+
+    const h =
+        Math.floor(seconds / 3600)
+        .toString()
+        .padStart(2, "0");
+
+    const m =
+        Math.floor((seconds % 3600) / 60)
+        .toString()
+        .padStart(2, "0");
+
+    const s =
+        (seconds % 60)
+        .toString()
+        .padStart(2, "0");
+
+    return `${h}:${m}:${s}`;
+}
+
+function getWeeklySeconds() {
+
+    let total = data.weeklySeconds;
+
+    if (
+        data.status === "ON DUTY" &&
+        data.sessionStart
+    ) {
+
+        total += Math.floor(
+            (Date.now() - data.sessionStart) / 1000
+        );
+    }
+
+    return total;
+}
+
+function update() {
+
+    checkWeek();
+
+    document.getElementById("username").value =
+        data.username;
+
+    document.getElementById("currentStatus").textContent =
+        data.status;
+
+    document.getElementById("headerStatus").textContent =
+        data.status;
+
+    let seconds = 0;
+
+    if (
+        data.status === "ON DUTY" &&
+        data.sessionStart
+    ) {
+
+        seconds =
+            Math.floor(
+                (Date.now() - data.sessionStart) / 1000
+            );
+    }
+
+    document.getElementById("timer").textContent =
+        formatSeconds(seconds);
+
+    const weekly =
+        getWeeklySeconds();
+
+    const minutes =
+        Math.floor(weekly / 60);
+
+    document.getElementById("minutes").textContent =
+        minutes;
+
+    const percent =
+        Math.min(
+            100,
+            Math.round((weekly / QUOTA) * 100)
+        );
+
+    document.getElementById("percentage").textContent =
+        percent + "%";
+
+    document.getElementById("progress").style.width =
+        percent + "%";
+
+    document.getElementById("quotaMessage").textContent =
+        weekly >= QUOTA
+            ? "Weekly quota complete"
+            : `${Math.max(0, 30 - minutes)} minutes remaining`;
+
+    renderActivity();
+}
+
+function renderActivity() {
+
+    const table =
+        document.getElementById("activityTable");
+
+    if (!data.activity.length) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="4" class="empty">
+                    No activity recorded yet.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    table.innerHTML =
+        data.activity.map(item => `
+
+            <tr>
+                <td>${escapeHTML(item.username)}</td>
+                <td>${escapeHTML(item.status)}</td>
+                <td>${escapeHTML(item.time)}</td>
+                <td>${escapeHTML(item.date)}</td>
+            </tr>
+
+        `).join("");
+}
+
+function escapeHTML(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+}
+
+checkWeek();
+update();
+
+setInterval(update, 1000);
+
+</script>
+
+</body>
+</html>
